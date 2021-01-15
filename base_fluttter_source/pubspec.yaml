@@ -15,6 +15,7 @@ dependencies:
   shared_preferences:
   flutter_dotenv:
   rxdart:
+  cached_network_image:
   intl:
   permission_handler:
   flutter:
