@@ -2,12 +2,12 @@
 import 'package:base_fluttter_source/screen/base_screen.dart';
 import 'package:base_fluttter_source_test/hello_screen.dart';
 import 'package:base_fluttter_source/navigator/base_navigator.dart';
+import 'package:base_fluttter_source/extensions/string_extensions.dart';
 
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class TestScreen extends BaseScreen {
-  
   @override
   init() {
     this.checkApplicationState = true;
@@ -24,6 +24,7 @@ class TestScreen extends BaseScreen {
           child: GestureDetector(
             child: Text(this.routeName),
             onTap: () {
+              // "hello".alert(this.widgetContext, cancelTitle: "Ok");
               this.push(HelloScreen(), transitionType: PageTransitionType.iOS);
             },
           ),

@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import './context_extensions.dart';
 
 extension StringExtension on String {
   bool isValid() {
@@ -11,5 +13,10 @@ extension StringExtension on String {
     if (!isValid()) return null;
     final date = DateFormat(format).parse(this);
     return date;
+  }
+
+  void alert(BuildContext context, {String cancelTitle}) {
+    if (context == null) return;
+    context.alert(message: this, cancelTitle: cancelTitle);
   }
 }
