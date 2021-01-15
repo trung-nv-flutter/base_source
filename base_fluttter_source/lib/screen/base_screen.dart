@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../widgets/base_stateful_widget.dart';
 import '../navigator/base_navigator.dart';
-import 'base_screen_inherited_widget.dart';
 
 const _VIEW_APPEAR_WAITING_TIME = 300; //miliseconds
 
@@ -12,7 +11,6 @@ const _VIEW_APPEAR_WAITING_TIME = 300; //miliseconds
 class BaseScreen extends BaseStateFulWidget with WidgetsBindingObserver {
   bool checkApplicationState = false;
   String routeName = "";
-  BaseScreenInheritedWidget inheritedWidget;
 
   //screen life cycle
   //init ->
@@ -92,13 +90,4 @@ class BaseScreen extends BaseStateFulWidget with WidgetsBindingObserver {
     else if (state == AppLifecycleState.resumed) appBecomeActive();
     super.didChangeAppLifecycleState(state);
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   if(inheritedWidget == null){
-  //     inheritedWidget =
-  //   }
-  //   // TODO: implement build
-  //   return super.build(context);
-  // }
 }

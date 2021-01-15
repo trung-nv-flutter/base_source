@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import './context_extensions.dart';
+import 'dart:io';
 
 extension StringExtension on String {
   bool isValid() {
@@ -18,5 +19,11 @@ extension StringExtension on String {
   void alert(BuildContext context, {String cancelTitle}) {
     if (context == null) return;
     context.alert(message: this, cancelTitle: cancelTitle);
+  }
+
+  Future<bool> isPath() async {
+    final file = File(this);
+    bool flag = await file.exists();
+    return flag;
   }
 }

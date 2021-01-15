@@ -10,6 +10,11 @@ environment:
 
 dependencies:
   after_layout:
+  http:
+  connectivity:
+  shared_preferences:
+  flutter_dotenv:
+  rxdart:
   intl:
   permission_handler:
   flutter:

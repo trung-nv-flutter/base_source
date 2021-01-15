@@ -1,4 +1,5 @@
 import 'string_extensions.dart';
+import 'dart:convert';
 
 extension MapExtensions on Map {
   String toPostManParams() {
@@ -69,5 +70,9 @@ extension MapExtensions on Map {
       }
     }
     return 0;
+  }
+
+  String toJSON() {
+    return json.encode(this);
   }
 }
