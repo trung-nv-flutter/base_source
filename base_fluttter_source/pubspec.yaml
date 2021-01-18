@@ -18,6 +18,7 @@ dependencies:
   cached_network_image:
   intl:
   permission_handler:
+  provider:
   flutter:
     sdk: flutter
 
