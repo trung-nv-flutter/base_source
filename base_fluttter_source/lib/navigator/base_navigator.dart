@@ -99,7 +99,7 @@ class BaseRouteController {
       this.transitionType = PageTransitionType.iOS}) {
     screen.routeController = this;
     name = screen.routeName;
-    if (transitionType == PageTransitionType.iOS || transitionType == null) {
+    if (transitionType == PageTransitionType.iOS) {
       routeBuilder = _CupertinoPageRoute(routeController: this);
     } else {
       routeBuilder =
@@ -148,6 +148,7 @@ class _PageRoute extends PageRouteBuilder {
                   child: child,
                 );
               }
+              
               return child;
             });
 }
