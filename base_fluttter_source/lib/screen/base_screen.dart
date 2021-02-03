@@ -63,6 +63,7 @@ class BaseScreen extends BaseStateFulWidget with WidgetsBindingObserver {
     final route =
         BaseRouteController(screen: screen, transitionType: transitionType);
     Navigator.of(widgetContext).pushReplacement(route.routeBuilder);
+    screen.viewWillAppear();
   }
 
   push(BaseScreen screen, {PageTransitionType transitionType}) {
