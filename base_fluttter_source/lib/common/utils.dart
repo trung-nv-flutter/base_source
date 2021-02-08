@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:connectivity/connectivity.dart';
 import './enums.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Utils {
@@ -45,7 +45,7 @@ class Utils {
     if (type == BuildConfiguration.Debug) fileName = 'assets/env/debug.env';
     if (type == BuildConfiguration.Profile) fileName = 'assets/env/profile.env';
     if (type == BuildConfiguration.Release) fileName = 'assets/env/release.env';
-    await DotEnv().load(fileName);
+    await DotEnv.load(fileName: fileName);
   }
 
   static Future<bool> isInternetConnected() async {
