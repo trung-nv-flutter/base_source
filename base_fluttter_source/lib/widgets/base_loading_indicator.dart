@@ -8,7 +8,11 @@ class BaseLoadingIndicator extends BaseStateFulWidget {
   Widget _loadingWidget;
 
   show({@required BuildContext fromContext}) async {
-    showDialog(context: fromContext, child: this);
+    final builder = (BuildContext contenxt) {
+      return this;
+    };
+    showDialog(context: fromContext, builder: builder);
+    // showDialog(context: fromContext, child: this);
     await Future.delayed(Duration(milliseconds: 200));
   }
 
