@@ -28,8 +28,10 @@ extension BuidContextExtensions on BuildContext {
     return isAllGranted;
   }
 
+#ifdef IS_MOBILE
   void checkAndRequestPermission(
       List<Permission> permissions, PermissionCallback callback) async {
+    
     int count = 0;
     for (var i = 0; i < permissions.length; i++) {
       final permission = permissions[i];
@@ -101,4 +103,6 @@ extension BuidContextExtensions on BuildContext {
     };
     showDialog(context: this, builder: widgetBuilder);
   }
+  #endif
 }
+

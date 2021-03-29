@@ -91,15 +91,16 @@ class BaseAPI {
         "url $url \n headers ${headers.toPostManParams()} \n params ${bodyParams?.toJSON()}");
 
     http.Response response;
+    final _uri = Uri.parse(url);
     if (method == RequestMethod.Get) {
-      response = await http.get(url, headers: headers);
+      response = await http.get(_uri, headers: headers);
     } else if (method == RequestMethod.Post) {
       response =
-          await http.post(url, headers: headers, body: bodyParams.toJSON());
+          await http.post(_uri, headers: headers, body: bodyParams.toJSON());
     } else if (method == RequestMethod.Patch) {
-      response = await http.patch(url, headers: headers, body: bodyParams);
+      response = await http.patch(_uri, headers: headers, body: bodyParams);
     } else if (method == RequestMethod.Delete) {
-      response = await http.delete(url, headers: headers);
+      response = await http.delete(_uri, headers: headers);
     }
     final result = await parseResponse(response);
     return result;
