@@ -5,6 +5,7 @@ import './enums.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class Utils {
   static bool isAndroid() {
@@ -13,6 +14,10 @@ class Utils {
 
   static bool isIOS() {
     return Platform.isIOS;
+  }
+
+  static bool isWeb() {
+    return kIsWeb;
   }
 
   static BuildConfiguration getBuildConfiguration() {
@@ -49,7 +54,21 @@ class Utils {
   }
 
   static Future<bool> isInternetConnected() async {
-    final connectivityResult = await (Connectivity().checkConnectivity());
-    return connectivityResult != ConnectivityResult.none;
+    if (isAndroid() || isIOS()) {
+      final connectivityResult = await (Connectivity().checkConnectivity());
+      return connectivityResult != ConnectivityResult.none;
+    }
+    if (isWeb()) {
+      try {
+        final result = await InternetAddress.lookup('google.com');
+        if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+          // print('connected');
+          return true;
+        }
+      } on SocketException catch (_) {
+        // print('not connected');
+      }
+      return false;
+    }
   }
 }
