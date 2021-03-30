@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-import './context_extensions.dart';
+// import './context_extensions.dart';
 import 'dart:io';
 
 extension StringExtension on String {
@@ -16,10 +16,10 @@ extension StringExtension on String {
     return date;
   }
 
-  void alert(BuildContext context, {String cancelTitle}) {
-    if (context == null) return;
-    context.alert(message: this, cancelTitle: cancelTitle);
-  }
+  // void alert(BuildContext context, {String cancelTitle}) {
+  //   if (context == null) return;
+  //   context.alert(message: this, cancelTitle: cancelTitle);
+  // }
 
   Future<bool> isPath() async {
     final file = File(this);

@@ -19,6 +19,7 @@ dependencies:
   intl:
   permission_handler:
   provider:
+  js:
   flutter:
     sdk: flutter
 

@@ -28,7 +28,6 @@ extension BuidContextExtensions on BuildContext {
     return isAllGranted;
   }
 
-#ifdef IS_MOBILE
   void checkAndRequestPermission(
       List<Permission> permissions, PermissionCallback callback) async {
     
@@ -103,6 +102,5 @@ extension BuidContextExtensions on BuildContext {
     };
     showDialog(context: this, builder: widgetBuilder);
   }
-  #endif
 }
 

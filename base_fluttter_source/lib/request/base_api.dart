@@ -59,7 +59,7 @@ class RequestAPIResponse {
 
 class BaseAPI {
   static String API_URL;
-  String uri;
+  String uri;  
   String rootURL = BaseAPI.API_URL;
   Map<String, String> queryParams;
   List<String> splashParams;
@@ -75,35 +75,43 @@ class BaseAPI {
   dynamic parseSuccessResponse(dynamic data) {}
 
   Future<RequestAPIResponse> request() async {
-    final isInternetConnected = await Utils.isInternetConnected();
-    if (!isInternetConnected) {
-      return RequestAPIResponse.internetError();
-    }
+    try {
+      final isInternetConnected = await Utils.isInternetConnected();
+      if (!isInternetConnected) {
+        return RequestAPIResponse.internetError();
+      }
 
-    var url = "$rootURL$uri";
+      var url = "$rootURL$uri";
 
-    if (queryParams != null) url += "?" + queryParams.toQuery();
-    if (splashParams != null) {
-      final _uri = splashParams.join("/");
-      url += "/" + _uri;
-    }
-    print(
-        "url $url \n headers ${headers.toPostManParams()} \n params ${bodyParams?.toJSON()}");
+      if (queryParams != null) url += "?" + queryParams.toQuery();
+      if (splashParams != null) {
+        final _uri = splashParams.join("/");
+        url += "/" + _uri;
+      }
+      print(
+          "url $url \n headers ${headers.toPostManParams()} \n params ${bodyParams?.toJSON()}");
 
-    http.Response response;
-    final _uri = Uri.parse(url);
-    if (method == RequestMethod.Get) {
-      response = await http.get(_uri, headers: headers);
-    } else if (method == RequestMethod.Post) {
-      response =
-          await http.post(_uri, headers: headers, body: bodyParams.toJSON());
-    } else if (method == RequestMethod.Patch) {
-      response = await http.patch(_uri, headers: headers, body: bodyParams);
-    } else if (method == RequestMethod.Delete) {
-      response = await http.delete(_uri, headers: headers);
+      http.Response response;
+      final _uri = Uri.parse(url);
+      if (method == RequestMethod.Get) {
+        response = await http.get(_uri, headers: headers);
+      } else if (method == RequestMethod.Post) {
+        response =
+            await http.post(_uri, headers: headers, body: bodyParams.toJSON());
+      } else if (method == RequestMethod.Patch) {
+        response = await http.patch(_uri, headers: headers, body: bodyParams);
+      } else if (method == RequestMethod.Delete) {
+        response = await http.delete(_uri, headers: headers);
+      }
+      final result = await parseResponse(response);
+      return result;
+    } catch (e) {
+      print("error ${e}");
+      final response = RequestAPIResponse();
+      response.success = false;
+      response.message = e.toString();
+      return response;
     }
-    final result = await parseResponse(response);
-    return result;
   }
 
   Future<RequestAPIResponse> upload() async {

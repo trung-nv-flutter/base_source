@@ -9,10 +9,12 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 class Utils {
   static bool isAndroid() {
+    if (kIsWeb) return false;
     return Platform.isAndroid;
   }
 
   static bool isIOS() {
+    if (kIsWeb) return false;
     return Platform.isIOS;
   }
 
@@ -59,16 +61,12 @@ class Utils {
       return connectivityResult != ConnectivityResult.none;
     }
     if (isWeb()) {
-      try {
-        final result = await InternetAddress.lookup('google.com');
-        if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-          // print('connected');
-          return true;
-        }
-      } on SocketException catch (_) {
-        // print('not connected');
-      }
-      return false;
+      return true;
+      // try {
+      //   bool result = await DataConnectionChecker().hasConnection;
+      //   return result;
+      // } on SocketException catch (_) {}
+      // return false;
     }
   }
 }
