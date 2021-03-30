@@ -41,25 +41,10 @@ extension ResponseCodeExtension on ResponseCode {
   }
 }
 
-class RequestAPIResponse {
-  bool success = false;
-  String message = "";
-  String status = "";
-  int code = 0;
-  bool isInternetError = false;
-  dynamic data;
-
-  static RequestAPIResponse internetError() {
-    final response = RequestAPIResponse();
-    response.success = false;
-    response.isInternetError = true;
-    return response;
-  }
-}
-
 class BaseAPI {
+  //request
   static String API_URL;
-  String uri;  
+  String uri;
   String rootURL = BaseAPI.API_URL;
   Map<String, String> queryParams;
   List<String> splashParams;
@@ -67,20 +52,32 @@ class BaseAPI {
   RequestMethod method = RequestMethod.Get;
   Map<String, String> headers = Map<String, String>();
 
+  //response
+  bool success = false;
+  String message = "";
+  int code = 0;
+  bool isInternetError = false;
+  dynamic data;
+
+  internetError() {
+    success = false;
+    isInternetError = true;
+  }
+
   BaseAPI() {
     initalize();
   }
   initalize() async {}
 
-  dynamic parseSuccessResponse(dynamic data) {}
+  parseSuccessResponse(dynamic body) async {}
 
-  Future<RequestAPIResponse> request() async {
+  request() async {
     try {
       final isInternetConnected = await Utils.isInternetConnected();
       if (!isInternetConnected) {
-        return RequestAPIResponse.internetError();
+        internetError();
+        return;
       }
-
       var url = "$rootURL$uri";
 
       if (queryParams != null) url += "?" + queryParams.toQuery();
@@ -103,18 +100,15 @@ class BaseAPI {
       } else if (method == RequestMethod.Delete) {
         response = await http.delete(_uri, headers: headers);
       }
-      final result = await parseResponse(response);
-      return result;
+      await parseResponse(response);
     } catch (e) {
       print("error ${e}");
-      final response = RequestAPIResponse();
-      response.success = false;
-      response.message = e.toString();
-      return response;
+      success = false;
+      message = e.toString();
     }
   }
 
-  Future<RequestAPIResponse> upload() async {
+  upload() async {
     var url = "$rootURL$uri";
     final request = http.MultipartRequest(
       method.name,
@@ -143,33 +137,28 @@ class BaseAPI {
     }
     http.StreamedResponse _response = await request.send();
     http.Response response = await http.Response.fromStream(_response);
-    final result = await parseResponse(response);
-    print("uploaded ${result.data}");
-
-    return result;
+    await parseResponse(response);
   }
 
-  Future<RequestAPIResponse> parseResponse(Response response) async {
+  parseResponse(Response response) async {
     var body;
     if (response.body != ArgumentError.notNull() && response.body.isNotEmpty)
       body = json.decode(response.body);
     if (response.statusCode == ResponseCode.FAILED.value &&
         response.body.isEmpty) body = "";
-    if (body == null) return RequestAPIResponse.internetError();
+    if (body == null) return internetError();
     // print(body);
-    final result = RequestAPIResponse();
+
     if (response.statusCode != ResponseCode.OK.value) {
-      result.code = response.statusCode;
-      result.success = false;
+      code = response.statusCode;
+      success = false;
       if (body != "") {
-        final message = body["Message"];
-        result.message = message;
+        message = body["Message"];
       }
-      return result;
+      return;
     }
-    result.code = response.statusCode;
-    result.success = true;
-    result.data = parseSuccessResponse(body);
-    return result;
+    code = response.statusCode;
+    success = true;
+    parseSuccessResponse(body);
   }
 }
