@@ -1,8 +1,8 @@
 // ignore: must_be_immutable
-import 'package:base_fluttter_source/screen/base_screen.dart';
-import 'package:base_fluttter_source_test/hello_screen.dart';
-import 'package:base_fluttter_source/navigator/base_navigator.dart';
-import 'package:base_fluttter_source/extensions/string_extensions.dart';
+import 'package:base_flutter_source/screen/base_screen.dart';
+import 'package:base_flutter_source_test/hello_screen.dart';
+import 'package:base_flutter_source/navigator/base_navigator.dart';
+import 'package:base_flutter_source/extensions/string_extensions.dart';
 
 import 'package:flutter/material.dart';
 

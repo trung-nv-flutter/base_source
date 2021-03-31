@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:base_fluttter_source/common/utils.dart';
+import 'package:base_flutter_source/common/utils.dart';
 import 'package:http/http.dart';
 import '../extensions/string_extensions.dart';
 import '../extensions/map_extensions.dart';

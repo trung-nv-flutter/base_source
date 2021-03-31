@@ -1,4 +1,4 @@
-import 'package:base_fluttter_source/widgets/base_stateful_widget.dart';
+import 'package:base_flutter_source/widgets/base_stateful_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -148,7 +148,7 @@ class _PageRoute extends PageRouteBuilder {
                   child: child,
                 );
               }
-              
+
               return child;
             });
 }

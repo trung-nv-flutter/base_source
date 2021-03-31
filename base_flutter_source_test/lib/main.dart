@@ -1,7 +1,7 @@
-import 'package:base_fluttter_source_test/test_screen.dart';
+import 'package:base_flutter_source_test/test_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'package:base_fluttter_source/navigator/base_navigator.dart';
+import 'package:base_flutter_source/navigator/base_navigator.dart';
 
 // import 'test_screen.dart';
 
