@@ -60,6 +60,7 @@ class Utils {
     await DotEnv.load(fileName: fileName);
   }
 
+  
   static Future<bool> isInternetConnected() async {
     if (isAndroid() || isIOS()) {
       final connectivityResult = await (Connectivity().checkConnectivity());
