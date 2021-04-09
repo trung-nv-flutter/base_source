@@ -87,7 +87,7 @@ class BaseAPI {
         url += "/" + _uri;
       }
       print(
-          "url $url \n headers ${headers.toPostManParams()} \n params ${bodyParams?.toJSON()}");
+          "url $url \n headers ${headers.toPostManParams()} \n params ${bodyParams?.toPostManParams()}");
 
       http.Response response;
       final _uri = Uri.parse(url);
