@@ -42,6 +42,7 @@ extension ResponseCodeExtension on ResponseCode {
 }
 
 class BaseAPI {
+  bool encodeJSONBodyParams = false;
   //request
   static String API_URL;
   String uri;
@@ -93,8 +94,8 @@ class BaseAPI {
       if (method == RequestMethod.Get) {
         response = await http.get(_uri, headers: headers);
       } else if (method == RequestMethod.Post) {
-        response =
-            await http.post(_uri, headers: headers, body: bodyParams.toJSON());
+        final _body = encodeJSONBodyParams ? bodyParams.toJSON() : bodyParams;
+        response = await http.post(_uri, headers: headers, body: _body);
       } else if (method == RequestMethod.Patch) {
         response = await http.patch(_uri, headers: headers, body: bodyParams);
       } else if (method == RequestMethod.Delete) {
