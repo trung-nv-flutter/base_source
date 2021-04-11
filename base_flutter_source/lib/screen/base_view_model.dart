@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'base_screen.dart';
 
 class BaseViewModel {
@@ -7,8 +9,8 @@ class BaseViewModel {
     this.screen = screen;
   }
 
-  showLoading(bool flag) async {
-    await screen?.showLoading(flag);
+  showLoading(bool flag, {Widget indicator}) async {
+    await screen?.showLoading(flag,indicator: indicator);
   }
 
   pushScreen(BaseScreen screen) {

@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 // import './context_extensions.dart';
 import 'dart:io';
 import 'package:path/path.dart';
+import 'package:sprintf/sprintf.dart';
 
 extension StringExtension on String {
   bool isValid() {
@@ -21,6 +22,9 @@ extension StringExtension on String {
   //   if (context == null) return;
   //   context.alert(message: this, cancelTitle: cancelTitle);
   // }
+  String withFormat({List<dynamic> values}) {
+    return sprintf(this, values);
+  }
 
   String getFileName({bool withoutExtension = false}) {
     if (!this.isValid()) return null;

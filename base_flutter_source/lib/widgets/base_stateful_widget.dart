@@ -38,11 +38,25 @@ class BaseStateFulWidget extends StatefulWidget {
     return Container();
   }
 
-  Future<void> showLoading(bool flag) async {
+  BuildContext _indicatorContext;
+
+  Future<void> showLoading(bool flag, {Widget indicator}) async {
     if (flag) {
-      await loadingIndicator?.show(fromContext: widgetContext);
+      if (_indicatorContext != null) return; //still loading
+      if (indicator == null) indicator = BaseLoadingIndicator();
+      await Navigator.of(widgetContext).push(
+        PageRouteBuilder(
+          opaque: false,
+          pageBuilder: (context, animation1, animation2) {
+            _indicatorContext = context;
+            return indicator;
+          },
+        ),
+      );
     } else {
-      loadingIndicator?.hide();
+      if (_indicatorContext != null) {
+        Navigator.of(_indicatorContext).pop();
+      }
     }
   }
 }
