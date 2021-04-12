@@ -44,7 +44,7 @@ class BaseStateFulWidget extends StatefulWidget {
     if (flag) {
       if (_indicatorContext != null) return; //still loading
       if (indicator == null) indicator = BaseLoadingIndicator();
-      await Navigator.of(widgetContext).push(
+      Navigator.of(widgetContext).push(
         PageRouteBuilder(
           opaque: false,
           pageBuilder: (context, animation1, animation2) {
@@ -53,9 +53,11 @@ class BaseStateFulWidget extends StatefulWidget {
           },
         ),
       );
+      await Future.delayed(Duration(milliseconds: 200));
     } else {
       if (_indicatorContext != null) {
         Navigator.of(_indicatorContext).pop();
+        _indicatorContext = null;
       }
     }
   }
