@@ -16,7 +16,7 @@ class BaseStateFulWidget extends StatefulWidget {
   initState() {}
   viewDidLoad() {}
   viewRenderFinished() {
-    print("${this} viewRenderFinished");
+    // print("${this} viewRenderFinished");
   }
 
   didChangeDependencies() {}
@@ -92,7 +92,7 @@ class _BaseStateFulWidgetState extends State<BaseStateFulWidget>
 
   @override
   void didChangeDependencies() {
-    print("${widget} didChangeDependencies");
+    // print("${widget} didChangeDependencies");
     widget.didChangeDependencies();
     super.didChangeDependencies();
   }

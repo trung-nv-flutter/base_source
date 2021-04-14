@@ -25,18 +25,18 @@ class BaseScreen extends BaseStateFulWidget with WidgetsBindingObserver {
 
   viewWillAppear() {
     _appeared = true;
-    print("${this} viewWillAppear");
+    // print("${this} viewWillAppear");
     _startAppearTimer();
   }
 
   viewWillDisappear() {
     _appeared = false;
     _startAppearTimer(flag: false);
-    print("${this} viewWillDisappear");
+    // print("${this} viewWillDisappear");
   }
 
   viewDidAppear() {
-    print("${this} viewDidAppear");
+    // print("${this} viewDidAppear");
   }
 
   BaseRouteController routeController;
@@ -94,7 +94,7 @@ class BaseScreen extends BaseStateFulWidget with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print("didChangeAppLifecycleState ${this} ${state}");
+    // print("didChangeAppLifecycleState ${this} ${state}");
     if (state == AppLifecycleState.inactive ||
         state == AppLifecycleState.paused)
       appBecomeDeactive();
