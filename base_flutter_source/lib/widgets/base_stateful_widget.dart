@@ -56,9 +56,13 @@ class BaseStateFulWidget extends StatefulWidget {
       );
       await Future.delayed(Duration(milliseconds: 200));
     } else {
-      if (_indicatorContext != null) {
-        Navigator.of(_indicatorContext).pop();
-        _indicatorContext = null;
+      try {
+        if (_indicatorContext != null) {
+          Navigator.of(_indicatorContext)?.pop();
+          _indicatorContext = null;
+        }
+      } catch (e) {
+        print("hideloading ${this} ${e}");
       }
     }
   }
