@@ -5,6 +5,7 @@ import 'base_loading_indicator.dart';
 
 // ignore: must_be_immutable
 class BaseStateFulWidget extends StatefulWidget {
+  // BaseStateFulWidget({key: key}) : super(key: key);
   BuildContext widgetContext;
   _BaseStateFulWidgetState _currentState;
   BaseLoadingIndicator loadingIndicator;
