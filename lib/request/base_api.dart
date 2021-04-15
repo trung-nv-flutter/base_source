@@ -42,6 +42,7 @@ extension ResponseCodeExtension on ResponseCode {
 }
 
 class BaseAPI {
+  bool logging = true;
   bool encodeJSONBodyParams = false;
   //request
   static String API_URL;
@@ -86,8 +87,9 @@ class BaseAPI {
         final _uri = splashParams.join("/");
         url += "/" + _uri;
       }
-      print(
-          "url $url \n headers ${headers.toPostManParams()} \n params ${bodyParams?.toPostManParams()}");
+      if (logging)
+        print(
+            "url $url \n headers ${headers.toPostManParams()} \n params ${bodyParams?.toPostManParams()}");
 
       http.Response response;
       final _uri = Uri.parse(url);
@@ -119,7 +121,7 @@ class BaseAPI {
     for (var key in headers.keys) {
       request.headers[key] = headers[key];
     }
-    print("url $url body ${bodyParams.toQuery()}");
+    if (logging) print("url $url body ${bodyParams.toQuery()}");
     for (var key in bodyParams.keys) {
       var value = bodyParams[key];
       if (value is String) {
