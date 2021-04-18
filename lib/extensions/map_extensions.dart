@@ -31,13 +31,14 @@ extension MapExtensions on Map {
     return "";
   }
 
-  bool getBool(String key) {
+  bool getBool(String key, {bool defaultValue}) {
     if (this == null) return null;
     if (this.keys.contains(key)) {
-      final value = this[key];
+      var value = this[key];
+      if (value is String) value = int.parse(value);
       return value == 1;
     }
-    return null;
+    return defaultValue;
   }
 
   double getDouble(String key) {

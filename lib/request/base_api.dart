@@ -71,9 +71,11 @@ class BaseAPI {
   }
   initalize() async {}
 
+  Future<void> configure() async {}
   parseSuccessResponse(dynamic body) async {}
 
   request() async {
+    await configure();
     try {
       final isInternetConnected = await Utils.isInternetConnected();
       if (!isInternetConnected) {
