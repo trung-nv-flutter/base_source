@@ -7,6 +7,22 @@ extension DateExtension on DateTime {
     return string;
   }
 
+  bool get isMonday {
+    return this.weekday == 1;
+  }
+
+  bool get isTuesday {
+    return this.weekday == 2;
+  }
+
+  bool get isSaturday {
+    return this.weekday == 6;
+  }
+
+  bool get isSunday {
+    return this.weekday == 7;
+  }
+
   DateTime setValues(
       {int hour, int minute, int second, int year, int month, int day}) {
     if (hour == null) hour = this.hour;
