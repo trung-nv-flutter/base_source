@@ -90,7 +90,7 @@ class _BaseStateFulWidgetState extends State<BaseStateFulWidget>
   @override
   void dispose() {
     widget.dispose();
-    widget.showLoading(false);
+    if (widget.mounted) widget.showLoading(false);
     super.dispose();
   }
 

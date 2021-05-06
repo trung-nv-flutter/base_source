@@ -71,6 +71,9 @@ class BaseAPI {
   }
   initalize() async {}
 
+  done() {
+    //do sth else
+  }
   Future<void> configure() async {}
   parseSuccessResponse(dynamic body) async {}
 
@@ -165,5 +168,6 @@ class BaseAPI {
     code = response.statusCode;
     success = true;
     parseSuccessResponse(body);
+    await done();
   }
 }

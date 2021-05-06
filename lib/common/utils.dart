@@ -26,7 +26,7 @@ class Utils {
     var result = BuildConfiguration.Profile;
     if (kReleaseMode == true) result = BuildConfiguration.Release;
     if (kDebugMode == true) result = BuildConfiguration.Debug;
-    print(result);
+    // print(result);
     return result;
   }
 

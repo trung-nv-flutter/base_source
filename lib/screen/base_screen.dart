@@ -22,6 +22,7 @@ class BaseScreen extends BaseStateFulWidget with WidgetsBindingObserver {
   //detect if screen has been totally appeared
   bool _appeared = false;
   Timer _appearTimer;
+  
 
   viewWillAppear() {
     _appeared = true;
@@ -78,6 +79,7 @@ class BaseScreen extends BaseStateFulWidget with WidgetsBindingObserver {
 
   @override
   dispose() {
+    _startAppearTimer(flag: false);
     if (checkApplicationState) WidgetsBinding.instance?.removeObserver(this);
     return super.dispose();
   }
