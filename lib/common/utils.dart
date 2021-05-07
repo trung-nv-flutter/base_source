@@ -31,8 +31,16 @@ class Utils {
   }
 
   static Future<dynamic> getDataWithKey(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.get(key);
+    try {
+      print("getDataWithKey $key");
+      final prefs = await SharedPreferences.getInstance();
+      final value = prefs.get(key);
+      print("getDataWithKey_value $value");
+      return value;
+    } catch (e) {
+      print("getDataWithKey_error $e");
+    }
+    return null;
   }
 
   static Future<void> saveDataWithKey(String key, dynamic value) async {

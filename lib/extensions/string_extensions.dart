@@ -4,6 +4,10 @@ import 'package:intl/intl.dart';
 import 'dart:io';
 import 'package:path/path.dart';
 import 'package:sprintf/sprintf.dart';
+import 'dart:convert';
+import 'package:convert/convert.dart';
+import 'package:crypto/crypto.dart' as crypto;
+
 
 extension StringExtension on String {
   bool isValid() {
@@ -16,6 +20,12 @@ extension StringExtension on String {
     if (!isValid()) return null;
     final date = DateFormat(format).parse(this);
     return date;
+  }
+
+  String get md5 {
+    var content = new Utf8Encoder().convert(this);
+    var digest = crypto.md5.convert(content);
+    return hex.encode(digest.bytes);
   }
 
   // void alert(BuildContext context, {String cancelTitle}) {

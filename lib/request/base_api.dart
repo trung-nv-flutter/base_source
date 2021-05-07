@@ -43,6 +43,7 @@ extension ResponseCodeExtension on ResponseCode {
 
 class BaseAPI {
   bool logging = true;
+  String responseAsString;
   bool encodeJSONBodyParams = false;
   //request
   static String API_URL;
@@ -77,6 +78,17 @@ class BaseAPI {
   Future<void> configure() async {}
   parseSuccessResponse(dynamic body) async {}
 
+  String get fullURL {
+    var url = "$rootURL$uri";
+
+    if (queryParams != null) url += "?" + queryParams.toQuery();
+    if (splashParams != null) {
+      final _uri = splashParams.join("/");
+      url += "/" + _uri;
+    }
+    return url;
+  }
+
   request() async {
     await configure();
     try {
@@ -85,13 +97,7 @@ class BaseAPI {
         internetError();
         return;
       }
-      var url = "$rootURL$uri";
-
-      if (queryParams != null) url += "?" + queryParams.toQuery();
-      if (splashParams != null) {
-        final _uri = splashParams.join("/");
-        url += "/" + _uri;
-      }
+      final url = fullURL;
       if (logging)
         print(
             "url $url \n headers ${headers.toPostManParams()} \n params ${bodyParams?.toPostManParams()}");
@@ -117,7 +123,7 @@ class BaseAPI {
   }
 
   upload() async {
-    var url = "$rootURL$uri";
+    var url = fullURL;
     final request = http.MultipartRequest(
       method.name,
       Uri.parse(url),
@@ -150,8 +156,11 @@ class BaseAPI {
 
   parseResponse(Response response) async {
     var body;
-    if (response.body != ArgumentError.notNull() && response.body.isNotEmpty)
+    if (response.body != ArgumentError.notNull() && response.body.isNotEmpty) {
+      responseAsString = response.body;
       body = json.decode(response.body);
+    }
+
     if (response.statusCode == ResponseCode.FAILED.value &&
         response.body.isEmpty) body = "";
     if (body == null) return internetError();
