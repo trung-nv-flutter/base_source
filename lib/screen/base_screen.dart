@@ -9,6 +9,9 @@ const _VIEW_APPEAR_WAITING_TIME = 300; //miliseconds
 
 // ignore: must_be_immutable
 class BaseScreen extends BaseStateFulWidget with WidgetsBindingObserver {
+  BaseScreen({Key key}) : super(key: key) {
+    
+  }
   bool checkApplicationState = false;
   String routeName = "";
 
