@@ -32,13 +32,12 @@ class Utils {
 
   static Future<dynamic> getDataWithKey(String key) async {
     try {
-      print("getDataWithKey $key");
+      
       final prefs = await SharedPreferences.getInstance();
       final value = prefs.get(key);
-      print("getDataWithKey_value $value");
+      
       return value;
     } catch (e) {
-      print("getDataWithKey_error $e");
     }
     return null;
   }
