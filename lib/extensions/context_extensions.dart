@@ -13,8 +13,8 @@ extension BuidContextExtensions on BuildContext {
     return mediaQuery.size;
   }
 
-  pop() {
-    Navigator.of(this).pop();
+  pop({dynamic value}) {
+    Navigator.of(this).pop(value);
   }
 
   // Future<bool> requestPermission(List<Permission> permissions) async {
@@ -48,13 +48,13 @@ extension BuidContextExtensions on BuildContext {
   //   }
   // }
 
-  alert(
-      {String title,
-      String message,
-      String confirmTitle,
-      String cancelTitle,
-      VoidCallback confirmCallBack}) {
-    if (this == null) return;
+  Future<dynamic> alert({
+    String title,
+    String message,
+    String confirmTitle,
+    String cancelTitle,
+  }) async {
+    if (this == null) return null;
     Widget titleWidget;
     Widget contentWidget;
     Widget confirmButton;
@@ -67,7 +67,9 @@ extension BuidContextExtensions on BuildContext {
     if (confirmTitle.isValid()) {
       confirmButton = FlatButton(
         child: Text(confirmTitle),
-        onPressed: confirmCallBack,
+        onPressed: () {
+          _dialogContext.pop(value: true);
+        },
       );
       actions.add(confirmButton);
     }
@@ -99,6 +101,6 @@ extension BuidContextExtensions on BuildContext {
         },
       );
     };
-    showDialog(context: this, builder: widgetBuilder);
+    return showDialog(context: this, builder: widgetBuilder);
   }
 }
